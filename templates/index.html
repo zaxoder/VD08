@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #quote { font-size: 1.5em; margin-bottom: 20px; }
+        #author { font-size: 1.2em; color: #555; }
+    </style>
+    <script>
+        function fetchNewQuote() {
+            fetch('/new-quote')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('quote').innerText = `"${data.content}"`;
+                    document.getElementById('author').innerText = `- ${data.author}`;
+                })
+                .catch(error => console.error('Error fetching new quote:', error));
+        }
+    </script>
+</head>
+<body>
+    <div id="quote">{{ quote.content }}</div>
+    <div id="author">- {{ quote.author }}</div>
+    <button onclick="fetchNewQuote()">Получить новую цитату</button>
+</body>
+</html>
